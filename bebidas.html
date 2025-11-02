@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bebidas - LA ESQUINA DEL SABOR</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #e63946;
+            --primary-dark: #c1121f;
+            --secondary: #f4a261;
+            --accent: #2a9d8f;
+            --dark: #1a1a2e;
+            --light: #f8f9fa;
+            --text: #2d3748;
+            --text-light: #718096;
+            --gradient: linear-gradient(135deg, #e63946 0%, #f4a261 100%);
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --shadow-hover: 0 20px 50px rgba(0, 0, 0, 0.2);
+            --transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.7;
+            color: var(--text);
+            background: var(--light);
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* Header Mejorado */
+        #header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: clamp(1.2rem, 4vw, 1.8rem);
+            font-weight: 800;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .logo i {
+            font-size: clamp(1.5rem, 4vw, 2.2rem);
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: clamp(1.5rem, 4vw, 2.5rem);
+        }
+
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: clamp(0.9rem, 2vw, 1rem);
+            transition: var(--transition);
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--gradient);
+            transition: width 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .cart-icon {
+            position: relative;
+            font-size: clamp(1.3rem, 3vw, 1.5rem);
+            color: var(--primary);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        /* Drinks Page Mejorada */
+        .drinks-page {
+            padding-top: 120px;
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--dark) 0%, #16213e 100%);
+            color: white;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: clamp(2rem, 8vw, 3.5rem);
+            color: var(--light);
+            margin-bottom: 3rem;
+            position: relative;
+            padding-bottom: 1.5rem;
+            font-weight: 800;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--secondary);
+            border-radius: 2px;
+        }
+
+        .drinks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 5%;
+        }
+
+        .drink-item {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: clamp(1.5rem, 4vw, 2rem);
+            border-radius: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: var(--transition);
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .drink-item:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: var(--secondary);
+            transform: translateY(-5px);
+        }
+
+        .drink-info {
+            display: flex;
+            align-items: center;
+            gap: clamp(0.75rem, 3vw, 1rem);
+            flex: 1;
+            min-width: 200px;
+        }
+
+        /* NUEVO: Estilo para imágenes de bebidas */
+        .drink-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            object-fit: cover;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .drink-item i {
+            font-size: clamp(1.75rem, 5vw, 2.5rem);
+            color: var(--secondary);
+        }
+
+        .drink-details {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .drink-name {
+            font-size: clamp(1rem, 3vw, 1.2rem);
+            font-weight: 600;
+            color: var(--light);
+        }
+
+        .drink-price {
+            font-size: clamp(1.1rem, 3vw, 1.3rem);
+            font-weight: 700;
+            color: var(--secondary);
+        }
+
+        .btn-add-cart {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: clamp(0.75rem, 3vw, 1rem) clamp(1rem, 4vw, 1.5rem);
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: clamp(0.9rem, 3vw, 1rem);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            min-height: 48px;
+            white-space: nowrap;
+        }
+
+        .btn-add-cart:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        /* Cart Float Mejorado */
+        .cart-float {
+            position: fixed;
+            bottom: 2rem;
+            left: 2rem;
+            background: var(--primary);
+            color: white;
+            padding: clamp(0.75rem, 3vw, 1rem) clamp(1.25rem, 4vw, 1.5rem);
+            border-radius: 50px;
+            box-shadow: 0 10px 30px rgba(230, 57, 70, 0.4);
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: clamp(0.9rem, 3vw, 1rem);
+        }
+
+        .cart-float:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px) scale(1.05);
+        }
+
+        .whatsapp-float {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: clamp(60px, 15vw, 70px);
+            height: clamp(60px, 15vw, 70px);
+            background: #25D366;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.5);
+            z-index: 999;
+            transition: var(--transition);
+        }
+
+        .whatsapp-float:hover {
+            background: #20BA5A;
+            transform: scale(1.1);
+            box-shadow: 0 15px 40px rgba(37, 211, 102, 0.7);
+        }
+
+        /* Footer Mejorado */
+        .footer {
+            background: var(--dark);
+            padding: 4rem 5% 2rem;
+            text-align: center;
+            color: var(--light);
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            font-size: clamp(1.5rem, 5vw, 2.2rem);
+            font-weight: 800;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        .footer-logo i {
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
+            color: var(--primary);
+        }
+
+        .footer-slogan {
+            font-size: clamp(1.1rem, 4vw, 1.3rem);
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 2rem;
+        }
+
+        .footer-copy {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: clamp(0.8rem, 3vw, 0.9rem);
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Modal Responsive para Bebidas */
+        .customization-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            padding: 1rem;
+        }
+
+        .modal-content {
+            background: white;
+            padding: clamp(1.5rem, 4vw, 2rem);
+            border-radius: 20px;
+            max-width: min(95%, 400px);
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            color: var(--text);
+        }
+
+        .modal-title {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-size: clamp(1.3rem, 4vw, 1.5rem);
+            font-weight: 700;
+        }
+
+        .option-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .option-title {
+            color: var(--dark);
+            margin-bottom: 0.75rem;
+            font-size: clamp(1rem, 3vw, 1.1rem);
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .radio-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 0.75rem;
+        }
+
+        .radio-label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-size: clamp(0.9rem, 3vw, 1rem);
+            cursor: pointer;
+            padding: 1rem;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            transition: var(--transition);
+            text-align: center;
+            min-height: 60px;
+        }
+
+        .radio-label:hover {
+            border-color: var(--primary);
+            background: #f8f9fa;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-cancel, .btn-confirm {
+            flex: 1;
+            padding: clamp(0.75rem, 3vw, 1rem);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: clamp(0.9rem, 3vw, 1rem);
+            font-weight: 600;
+            transition: var(--transition);
+            min-width: 120px;
+            min-height: 48px;
+        }
+
+        .btn-cancel {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-cancel:hover {
+            background: #5a6268;
+        }
+
+        .btn-confirm {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-confirm:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Menu Toggle para móvil */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .menu-toggle span {
+            width: 30px;
+            height: 3px;
+            background: var(--primary);
+            transition: var(--transition);
+            border-radius: 2px;
+        }
+
+        /* ===== MEDIA QUERIES MEJORADAS ===== */
+
+        /* Tablet */
+        @media (max-width: 1024px) {
+            .drinks-grid {
+                grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+                gap: 1.25rem;
+            }
+        }
+
+        /* Tablet Pequeña / Móvil Grande */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 1rem 5%;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                right: -100%;
+                width: 85%;
+                height: calc(100vh - 70px);
+                background: rgba(255, 255, 255, 0.98);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1.5rem;
+                transition: right 0.3s ease;
+                box-shadow: -5px 0 30px rgba(0, 0, 0, 0.1);
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .menu-toggle.active span:nth-child(1) {
+                transform: rotate(45deg) translate(8px, 8px);
+            }
+
+            .menu-toggle.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .menu-toggle.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(7px, -7px);
+            }
+
+            .drinks-grid {
+                padding: 0 1rem;
+            }
+
+            .drink-item {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+
+            .drink-info {
+                justify-content: center;
+                min-width: auto;
+            }
+
+            .cart-float {
+                bottom: 5rem;
+                left: 1rem;
+            }
+
+            .whatsapp-float {
+                bottom: 1rem;
+                right: 1rem;
+            }
+
+            .radio-group {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Móvil */
+        @media (max-width: 576px) {
+            .drinks-page {
+                padding-top: 100px;
+            }
+
+            .drinks-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+                padding: 0 0.75rem;
+            }
+
+            .drink-item {
+                padding: 1.25rem;
+            }
+
+            .modal-buttons {
+                flex-direction: column;
+            }
+
+            .btn-cancel, .btn-confirm {
+                min-width: auto;
+            }
+        }
+
+        /* Móvil Pequeño */
+        @media (max-width: 400px) {
+            .navbar {
+                padding: 0.75rem 1rem;
+            }
+
+            .drinks-grid {
+                padding: 0 0.5rem;
+            }
+
+            .drink-item {
+                padding: 1rem;
+            }
+
+            .cart-float {
+                bottom: 4.5rem;
+                left: 0.75rem;
+                padding: 0.75rem 1rem;
+            }
+
+            .whatsapp-float {
+                bottom: 0.75rem;
+                right: 0.75rem;
+            }
+        }
+
+        /* Mejoras para touch devices */
+        @media (hover: none) and (pointer: coarse) {
+            .btn-add-cart:hover,
+            .cart-float:hover,
+            .whatsapp-float:hover,
+            .radio-label:hover {
+                transform: none;
+            }
+            
+            .drink-item:hover {
+                transform: none;
+            }
+        }
+
+        /* Soporte para navegadores antiguos */
+        @supports not (backdrop-filter: blur(20px)) {
+            .nav-links {
+                background: rgba(255, 255, 255, 0.98);
+            }
+            
+            .drink-item {
+                background: rgba(255, 255, 255, 0.15);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header id="header">
+        <nav class="navbar">
+            <div class="logo">
+                <i class="fas fa-drumstick-bite"></i>
+                <span>LA ESQUINA DEL SABOR</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="menu.html">Menú</a></li>
+                <li><a href="bebidas.html">Bebidas</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+                <li><a href="carrito.html" class="cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                </a></li>
+            </ul>
+            <button class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </nav>
+    </header>
+
+    <section class="drinks-page">
+        <h2 class="section-title">Bebidas</h2>
+        <div class="drinks-grid">
+            <div class="drink-item">
+                <div class="drink-info">
+                    <img src="images/concordia-pina.jpg" alt="Concordia Piña" class="drink-image">
+                    <div class="drink-details">
+                        <div class="drink-name">Concordia Piña</div>
+                        <div class="drink-price">S/ 5.00</div>
+                    </div>
+                </div>
+                <button class="btn-add-cart" onclick="addToCart(12, 'Concordia Piña', 5.00)">
+                    <i class="fas fa-cart-plus"></i>
+                    Agregar
+                </button>
+            </div>
+            <div class="drink-item">
+                <div class="drink-info">
+                    <img src="images/concordia-fresa.jpg" alt="Concordia Fresa" class="drink-image">
+                    <div class="drink-details">
+                        <div class="drink-name">Concordia Fresa</div>
+                        <div class="drink-price">S/ 5.00</div>
+                    </div>
+                </div>
+                <button class="btn-add-cart" onclick="addToCart(13, 'Concordia Fresa', 5.00)">
+                    <i class="fas fa-cart-plus"></i>
+                    Agregar
+                </button>
+            </div>
+            <div class="drink-item">
+                <div class="drink-info">
+                    <img src="images/fanta-naranja.jpg" alt="Fanta Naranja" class="drink-image">
+                    <div class="drink-details">
+                        <div class="drink-name">Fanta Naranja</div>
+                        <div class="drink-price">S/ 5.00</div>
+                    </div>
+                </div>
+                <button class="btn-add-cart" onclick="addToCart(14, 'Fanta Naranja', 5.00)">
+                    <i class="fas fa-cart-plus"></i>
+                    Agregar
+                </button>
+            </div>
+            <div class="drink-item">
+                <div class="drink-info">
+                    <img src="images/fanta-fresa.jpg" alt="Fanta Fresa" class="drink-image">
+                    <div class="drink-details">
+                        <div class="drink-name">Fanta Fresa</div>
+                        <div class="drink-price">S/ 5.00</div>
+                    </div>
+                </div>
+                <button class="btn-add-cart" onclick="addToCart(15, 'Fanta Fresa', 5.00)">
+                    <i class="fas fa-cart-plus"></i>
+                    Agregar
+                </button>
+            </div>
+            <div class="drink-item">
+                <div class="drink-info">
+                    <img src="images/pepsi.jpg" alt="Pepsi" class="drink-image">
+                    <div class="drink-details">
+                        <div class="drink-name">Pepsi</div>
+                        <div class="drink-price">S/ 5.00</div>
+                    </div>
+                </div>
+                <button class="btn-add-cart" onclick="addToCart(16, 'Pepsi', 5.00)">
+                    <i class="fas fa-cart-plus"></i>
+                    Agregar
+                </button>
+            </div>
+            <div class="drink-item">
+                <div class="drink-info">
+                    <img src="images/guarana.jpg" alt="Guaraná" class="drink-image">
+                    <div class="drink-details">
+                        <div class="drink-name">Guaraná</div>
+                        <div class="drink-price">S/ 5.00</div>
+                    </div>
+                </div>
+                <button class="btn-add-cart" onclick="addToCart(17, 'Guaraná', 5.00)">
+                    <i class="fas fa-cart-plus"></i>
+                    Agregar
+                </button>
+            </div>
+            <div class="drink-item">
+                <div class="drink-info">
+                    <img src="images/coca-cola.jpg" alt="Coca Cola" class="drink-image">
+                    <div class="drink-details">
+                        <div class="drink-name">Coca Cola</div>
+                        <div class="drink-price">S/ 5.00</div>
+                    </div>
+                </div>
+                <button class="btn-add-cart" onclick="addToCart(18, 'Coca Cola', 5.00)">
+                    <i class="fas fa-cart-plus"></i>
+                    Agregar
+                </button>
+            </div>
+            <div class="drink-item">
+                <div class="drink-info">
+                    <img src="images/inca-kola.jpg" alt="Inca Kola" class="drink-image">
+                    <div class="drink-details">
+                        <div class="drink-name">Inca Kola</div>
+                        <div class="drink-price">S/ 5.00</div>
+                    </div>
+                </div>
+                <button class="btn-add-cart" onclick="addToCart(19, 'Inca Kola', 5.00)">
+                    <i class="fas fa-cart-plus"></i>
+                    Agregar
+                </button>
+            </div>
+            <div class="drink-item">
+                <div class="drink-info">
+                    <img src="images/sporade.jpg" alt="Sporade" class="drink-image">
+                    <div class="drink-details">
+                        <div class="drink-name">Sporade</div>
+                        <div class="drink-price">S/ 5.00</div>
+                    </div>
+                </div>
+                <button class="btn-add-cart" onclick="addToCart(20, 'Sporade', 5.00)">
+                    <i class="fas fa-cart-plus"></i>
+                    Agregar
+                </button>
+            </div>
+            <div class="drink-item">
+                <div class="drink-info">
+                    <img src="images/agua-cielo.jpg" alt="Agua Cielo" class="drink-image">
+                    <div class="drink-details">
+                        <div class="drink-name">Agua Cielo</div>
+                        <div class="drink-price">S/ 3.00</div>
+                    </div>
+                </div>
+                <button class="btn-add-cart" onclick="addToCart(21, 'Agua Cielo', 3.00)">
+                    <i class="fas fa-cart-plus"></i>
+                    Agregar
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <div class="cart-float" onclick="window.location.href='carrito.html'">
+        <i class="fas fa-shopping-cart"></i>
+        <span>Ver Carrito (<span id="cart-total-items">0</span>)</span>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <i class="fas fa-drumstick-bite"></i>
+                <span>LA ESQUINA DEL SABOR</span>
+            </div>
+            <p class="footer-slogan">SABOR QUE TE HACE VOLVER</p>
+            <p class="footer-copy">© 2025 La Esquina del Sabor. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <a href="https://wa.me/51933642183" class="whatsapp-float" target="_blank" title="Contáctanos por WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script>
+        // Sistema del Carrito
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        function updateCartCount() {
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.querySelector('.cart-count').textContent = totalItems;
+            document.getElementById('cart-total-items').textContent = totalItems;
+        }
+
+        function addToCart(id, name, price) {
+            // Crear modal para seleccionar si la bebida es helada o sin helar
+            const modalContent = `
+                <div class="modal-content">
+                    <h3 class="modal-title">Seleccionar tipo de bebida</h3>
+                    <div class="option-group">
+                        <h4 class="option-title">¿Cómo quieres tu ${name}?</h4>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="bebida-tipo" value="Sin Helar">
+                                <span>Sin Helar</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="modal-buttons">
+                        <button class="btn-cancel" onclick="closeModal()">Cancelar</button>
+                        <button class="btn-confirm" onclick="confirmarBebida(${id}, '${name}', ${price})">Agregar al Carrito</button>
+                    </div>
+                </div>
+            `;
+
+            const modal = document.createElement('div');
+            modal.className = 'customization-modal';
+            modal.innerHTML = modalContent;
+            document.body.appendChild(modal);
+        }
+
+        function confirmarBebida(id, name, price) {
+            const tipoBebida = document.querySelector('input[name="bebida-tipo"]:checked').value;
+            
+            const existingItem = cart.find(item => item.id === id && item.tipo === tipoBebida);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    id: id,
+                    name: name + ' (' + tipoBebida + ')',
+                    price: parseFloat(price),
+                    quantity: 1,
+                    timestamp: Date.now(),
+                    tipo: tipoBebida
+                });
+            }
+            
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
+            closeModal();
+            
+            // Efecto visual
+            const button = event.target.closest('.btn-add-cart');
+            const originalHTML = button.innerHTML;
+            button.innerHTML = '<i class="fas fa-check"></i> Agregado';
+            button.style.background = '#2a9d8f';
+            
+            setTimeout(() => {
+                button.innerHTML = originalHTML;
+                button.style.background = '';
+            }, 1500);
+        }
+
+        function closeModal() {
+            const modal = document.querySelector('.customization-modal');
+            if (modal) {
+                document.body.removeChild(modal);
+            }
+        }
+
+        // Menú móvil
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.querySelector('.nav-links');
+
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            menuToggle.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                menuToggle.classList.remove('active');
+            });
+        });
+
+        // Inicializar contador del carrito
+        updateCartCount();
+    </script>
+</body>
+</html>bebida-tipo" value="Helada" checked>
+                                <span>Helada ❄️</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="

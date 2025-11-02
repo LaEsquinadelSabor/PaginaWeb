@@ -1,0 +1,1475 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menú - LA ESQUINA DEL SABOR</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #e63946;
+            --primary-dark: #c1121f;
+            --secondary: #f4a261;
+            --accent: #2a9d8f;
+            --dark: #1a1a2e;
+            --light: #f8f9fa;
+            --text: #2d3748;
+            --text-light: #718096;
+            --gradient: linear-gradient(135deg, #e63946 0%, #f4a261 100%);
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --shadow-hover: 0 20px 50px rgba(0, 0, 0, 0.2);
+            --transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.7;
+            color: var(--text);
+            background: var(--light);
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* Header Mejorado */
+        #header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: clamp(1.2rem, 4vw, 1.8rem);
+            font-weight: 800;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .logo i {
+            font-size: clamp(1.5rem, 4vw, 2.2rem);
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: clamp(1.5rem, 4vw, 2.5rem);
+        }
+
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: clamp(0.9rem, 2vw, 1rem);
+            transition: var(--transition);
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--gradient);
+            transition: width 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .cart-icon {
+            position: relative;
+            font-size: clamp(1.3rem, 3vw, 1.5rem);
+            color: var(--primary);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        /* Menu Page Mejorada */
+        .menu-page {
+            padding-top: 120px;
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--dark) 0%, #16213e 100%);
+            color: white;
+        }
+
+        .page-title {
+            text-align: center;
+            font-size: clamp(2rem, 8vw, 3.5rem);
+            color: var(--light);
+            margin-bottom: 3rem;
+            position: relative;
+            padding-bottom: 1.5rem;
+            font-weight: 800;
+        }
+
+        .page-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--secondary);
+            border-radius: 2px;
+        }
+
+        .menu-section {
+            margin-bottom: 4rem;
+            padding: 0 5%;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-size: clamp(1.75rem, 6vw, 2.5rem);
+            color: var(--secondary);
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .section-divider {
+            width: 60px;
+            height: 3px;
+            background: var(--primary);
+            margin: 0 auto;
+            border-radius: 2px;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 350px), 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .menu-item {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: clamp(1.5rem, 4vw, 2rem);
+            border-radius: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .menu-item:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: var(--secondary);
+            transform: translateY(-8px);
+        }
+
+        .menu-item-image {
+            width: 100%;
+            height: clamp(180px, 30vw, 220px);
+            border-radius: 15px;
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .menu-item-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .menu-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .menu-item-name {
+            font-size: clamp(1.1rem, 4vw, 1.3rem);
+            font-weight: 700;
+            color: var(--light);
+            line-height: 1.3;
+        }
+
+        .menu-item-price {
+            font-size: clamp(1.2rem, 4vw, 1.4rem);
+            font-weight: 700;
+            color: var(--secondary);
+            white-space: nowrap;
+        }
+
+        .btn-add-cart {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: clamp(0.75rem, 3vw, 1rem) clamp(1rem, 4vw, 1.5rem);
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: clamp(0.9rem, 3vw, 1rem);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 100%;
+            margin-top: auto;
+            min-height: 48px;
+        }
+
+        .btn-add-cart:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        /* Cart Float Mejorado */
+        .cart-float {
+            position: fixed;
+            bottom: 2rem;
+            left: 2rem;
+            background: var(--primary);
+            color: white;
+            padding: clamp(0.75rem, 3vw, 1rem) clamp(1.25rem, 4vw, 1.5rem);
+            border-radius: 50px;
+            box-shadow: 0 10px 30px rgba(230, 57, 70, 0.4);
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: clamp(0.9rem, 3vw, 1rem);
+        }
+
+        .cart-float:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px) scale(1.05);
+        }
+
+        .whatsapp-float {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: clamp(60px, 15vw, 70px);
+            height: clamp(60px, 15vw, 70px);
+            background: #25D366;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.5);
+            z-index: 999;
+            transition: var(--transition);
+        }
+
+        .whatsapp-float:hover {
+            background: #20BA5A;
+            transform: scale(1.1);
+            box-shadow: 0 15px 40px rgba(37, 211, 102, 0.7);
+        }
+
+        /* Footer Mejorado */
+        .footer {
+            background: var(--dark);
+            padding: 4rem 5% 2rem;
+            text-align: center;
+            color: var(--light);
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            font-size: clamp(1.5rem, 5vw, 2.2rem);
+            font-weight: 800;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        .footer-logo i {
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
+            color: var(--primary);
+        }
+
+        .footer-slogan {
+            font-size: clamp(1.1rem, 4vw, 1.3rem);
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 2rem;
+        }
+
+        .footer-copy {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: clamp(0.8rem, 3vw, 0.9rem);
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Modal Responsive */
+        .customization-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            padding: 1rem;
+        }
+
+        .modal-content {
+            background: white;
+            padding: clamp(1.5rem, 4vw, 2rem);
+            border-radius: 20px;
+            max-width: min(95%, 500px);
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            color: var(--text);
+        }
+
+        .modal-title {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-size: clamp(1.3rem, 4vw, 1.5rem);
+            font-weight: 700;
+        }
+
+        .option-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .option-title {
+            color: var(--dark);
+            margin-bottom: 0.75rem;
+            font-size: clamp(1rem, 3vw, 1.1rem);
+            font-weight: 600;
+        }
+
+        .checkbox-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 0.75rem;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: clamp(0.85rem, 3vw, 0.9rem);
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+
+        .checkbox-label:hover {
+            background: #f8f9fa;
+        }
+
+        .radio-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 0.75rem;
+        }
+
+        .radio-label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: clamp(0.85rem, 3vw, 0.9rem);
+            cursor: pointer;
+            padding: 0.75rem;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+
+        .radio-label:hover {
+            border-color: var(--primary);
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-cancel, .btn-confirm {
+            flex: 1;
+            padding: clamp(0.75rem, 3vw, 1rem);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: clamp(0.9rem, 3vw, 1rem);
+            font-weight: 600;
+            transition: var(--transition);
+            min-width: 120px;
+        }
+
+        .btn-cancel {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-cancel:hover {
+            background: #5a6268;
+        }
+
+        .btn-confirm {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-confirm:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Menu Toggle para móvil */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .menu-toggle span {
+            width: 30px;
+            height: 3px;
+            background: var(--primary);
+            transition: var(--transition);
+            border-radius: 2px;
+        }
+
+        /* ===== ESTILOS NUEVOS PARA DISPONIBILIDAD ===== */
+        
+        /* Anuncio del día */
+        .daily-announcement {
+            max-width: 1200px;
+            margin: 0 auto 3rem;
+            padding: clamp(1.25rem, 3vw, 1.75rem) clamp(1.5rem, 4vw, 2.5rem);
+            background: linear-gradient(135deg, rgba(244, 162, 97, 0.95) 0%, rgba(230, 57, 70, 0.95) 100%);
+            border-radius: 20px;
+            text-align: center;
+            color: white;
+            font-size: clamp(1.1rem, 3vw, 1.4rem);
+            font-weight: 600;
+            box-shadow: 0 10px 40px rgba(230, 57, 70, 0.4);
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            animation: slideDown 0.6s ease-out;
+            display: none;
+        }
+
+        .daily-announcement.show {
+            display: block;
+        }
+
+        .daily-announcement i {
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            margin-right: 0.75rem;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Badge de disponibilidad */
+        .availability-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: clamp(0.75rem, 2.5vw, 0.85rem);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            z-index: 10;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .menu-item[data-availability].available .availability-badge {
+            background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+            color: white;
+        }
+
+        .menu-item[data-availability].available .availability-badge::before {
+            content: '✓ Disponible Hoy';
+        }
+
+        .menu-item[data-availability].unavailable {
+            opacity: 0.6;
+        }
+
+        .menu-item[data-availability].unavailable::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 20px;
+            z-index: 5;
+        }
+
+        .menu-item[data-availability].unavailable .availability-badge {
+            background: linear-gradient(135deg, #95a5a6 0%, #7f8c8d 100%);
+            color: white;
+        }
+
+        .menu-item[data-availability].unavailable .availability-badge::before {
+            content: 'No Disponible';
+        }
+
+        .menu-item[data-availability].unavailable .btn-add-cart {
+            opacity: 0.5;
+            cursor: not-allowed;
+            pointer-events: none;
+            background: #95a5a6;
+        }
+
+        .menu-item[data-availability].unavailable .btn-add-cart::after {
+            content: ' - No disponible hoy';
+            font-size: 0.85em;
+        }
+
+        /* ===== MEDIA QUERIES MEJORADAS ===== */
+
+        /* Tablet */
+        @media (max-width: 1024px) {
+            .menu-grid {
+                grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+                gap: 1.5rem;
+            }
+        }
+
+        /* Tablet Pequeña / Móvil Grande */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 1rem 5%;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                right: -100%;
+                width: 85%;
+                height: calc(100vh - 70px);
+                background: rgba(255, 255, 255, 0.98);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1.5rem;
+                transition: right 0.3s ease;
+                box-shadow: -5px 0 30px rgba(0, 0, 0, 0.1);
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .menu-toggle.active span:nth-child(1) {
+                transform: rotate(45deg) translate(8px, 8px);
+            }
+
+            .menu-toggle.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .menu-toggle.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(7px, -7px);
+            }
+
+            .menu-section {
+                padding: 0 1rem;
+            }
+
+            .cart-float {
+                bottom: 5rem;
+                left: 1rem;
+            }
+
+            .whatsapp-float {
+                bottom: 1rem;
+                right: 1rem;
+            }
+
+            .checkbox-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .daily-announcement {
+                margin: 0 1rem 2rem;
+            }
+
+            .availability-badge {
+                top: 10px;
+                right: 10px;
+                padding: 0.4rem 0.75rem;
+                font-size: 0.7rem;
+            }
+        }
+
+        /* Móvil */
+        @media (max-width: 576px) {
+            .menu-page {
+                padding-top: 100px;
+            }
+
+            .menu-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .menu-item {
+                padding: 1.25rem;
+            }
+
+            .menu-item-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+
+            .modal-buttons {
+                flex-direction: column;
+            }
+
+            .btn-cancel, .btn-confirm {
+                min-width: auto;
+            }
+
+            .radio-group {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Móvil Pequeño */
+        @media (max-width: 400px) {
+            .navbar {
+                padding: 0.75rem 1rem;
+            }
+
+            .menu-section {
+                padding: 0 0.75rem;
+            }
+
+            .menu-item {
+                padding: 1rem;
+            }
+
+            .cart-float {
+                bottom: 4.5rem;
+                left: 0.75rem;
+                padding: 0.75rem 1rem;
+            }
+
+            .whatsapp-float {
+                bottom: 0.75rem;
+                right: 0.75rem;
+            }
+        }
+
+        /* Mejoras para touch devices */
+        @media (hover: none) and (pointer: coarse) {
+            .btn-add-cart:hover,
+            .cart-float:hover,
+            .whatsapp-float:hover {
+                transform: none;
+            }
+            
+            .menu-item:hover {
+                transform: none;
+            }
+        }
+
+        /* Soporte para navegadores antiguos */
+        @supports not (backdrop-filter: blur(20px)) {
+            .nav-links {
+                background: rgba(255, 255, 255, 0.98);
+            }
+            
+            .menu-item {
+                background: rgba(255, 255, 255, 0.15);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header id="header">
+        <nav class="navbar">
+            <div class="logo">
+                <i class="fas fa-drumstick-bite"></i>
+                <span>LA ESQUINA DEL SABOR</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="menu.html">Menú</a></li>
+                <li><a href="bebidas.html">Bebidas</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+                <li><a href="carrito.html" class="cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                </a></li>
+            </ul>
+            <button class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </nav>
+    </header>
+
+    <section class="menu-page">
+        <h2 class="page-title">Nuestro Menú</h2>
+
+        <!-- ANUNCIO AUTOMÁTICO DEL DÍA -->
+        <div id="daily-announcement" class="daily-announcement"></div>
+
+        <!-- SECCIÓN BROASTER -->
+        <div class="menu-section">
+            <div class="section-header">
+                <h3 class="section-title">Broaster</h3>
+                <div class="section-divider"></div>
+            </div>
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <div class="menu-item-image">
+                        <img src="images/broaster-pecho.jpg" alt="Broaster Pecho">
+                    </div>
+                    <div class="menu-item-header">
+                        <div class="menu-item-name">Pecho</div>
+                        <div class="menu-item-price">S/ 16.00</div>
+                    </div>
+                    <button class="btn-add-cart" onclick="addToCart(1, 'Broaster Pecho', 16.00)">
+                        <i class="fas fa-cart-plus"></i>
+                        Agregar al Carrito
+                    </button>
+                </div>
+
+                <div class="menu-item">
+                    <div class="menu-item-image">
+                        <img src="images/broaster-pierna.jpg" alt="Broaster Pierna">
+                    </div>
+                    <div class="menu-item-header">
+                        <div class="menu-item-name">Pierna</div>
+                        <div class="menu-item-price">S/ 18.00</div>
+                    </div>
+                    <button class="btn-add-cart" onclick="addToCart(2, 'Broaster Pierna', 18.00)">
+                        <i class="fas fa-cart-plus"></i>
+                        Agregar al Carrito
+                    </button>
+                </div>
+
+                <div class="menu-item">
+                    <div class="menu-item-image">
+                        <img src="images/broaster-alita.jpg" alt="Broaster Alita">
+                    </div>
+                    <div class="menu-item-header">
+                        <div class="menu-item-name">Alita</div>
+                        <div class="menu-item-price">S/ 15.00</div>
+                    </div>
+                    <button class="btn-add-cart" onclick="addToCart(3, 'Broaster Alita', 15.00)">
+                        <i class="fas fa-cart-plus"></i>
+                        Agregar al Carrito
+                    </button>
+                </div>
+
+                <div class="menu-item">
+                    <div class="menu-item-image">
+                        <img src="images/broaster-encuentro.jpg" alt="Broaster Encuentro">
+                    </div>
+                    <div class="menu-item-header">
+                        <div class="menu-item-name">Encuentro</div>
+                        <div class="menu-item-price">S/ 17.00</div>
+                    </div>
+                    <button class="btn-add-cart" onclick="addToCart(4, 'Broaster Encuentro', 17.00)">
+                        <i class="fas fa-cart-plus"></i>
+                        Agregar al Carrito
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECCIÓN HAMBURGUESAS -->
+        <div class="menu-section">
+            <div class="section-header">
+                <h3 class="section-title">Hamburguesas</h3>
+                <div class="section-divider"></div>
+            </div>
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <div class="menu-item-image">
+                        <img src="images/hamburguesa-clasica.jpg" alt="Hamburguesa Clásica">
+                    </div>
+                    <div class="menu-item-header">
+                        <div class="menu-item-name">Clásica</div>
+                        <div class="menu-item-price">S/ 12.00</div>
+                    </div>
+                    <button class="btn-add-cart" onclick="addToCart(5, 'Hamburguesa Clásica', 12.00)">
+                        <i class="fas fa-cart-plus"></i>
+                        Agregar al Carrito
+                    </button>
+                </div>
+
+                <div class="menu-item">
+                    <div class="menu-item-image">
+                        <img src="images/hamburguesa-royal.jpg" alt="Hamburguesa Royal">
+                    </div>
+                    <div class="menu-item-header">
+                        <div class="menu-item-name">Royal</div>
+                        <div class="menu-item-price">S/ 15.00</div>
+                    </div>
+                    <button class="btn-add-cart" onclick="addToCart(6, 'Hamburguesa Royal', 15.00)">
+                        <i class="fas fa-cart-plus"></i>
+                        Agregar al Carrito
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECCIÓN OTROS PLATOS -->
+        <div class="menu-section">
+            <div class="section-header">
+                <h3 class="section-title">Otros Platos</h3>
+                <div class="section-divider"></div>
+            </div>
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <div class="menu-item-image">
+                        <img src="images/salchipapa.jpg" alt="Salchipapa">
+                    </div>
+                    <div class="menu-item-header">
+                        <div class="menu-item-name">Salchipapa</div>
+                        <div class="menu-item-price">S/ 10.00</div>
+                    </div>
+                    <button class="btn-add-cart" onclick="addToCart(7, 'Salchipapa', 10.00)">
+                        <i class="fas fa-cart-plus"></i>
+                        Agregar al Carrito
+                    </button>
+                </div>
+
+                <div class="menu-item">
+                    <div class="menu-item-image">
+                        <img src="images/pollo-plancha.jpg" alt="Pollo a la Plancha">
+                    </div>
+                    <div class="menu-item-header">
+                        <div class="menu-item-name">Pollo a la Plancha</div>
+                        <div class="menu-item-price">S/ 14.00</div>
+                    </div>
+                    <button class="btn-add-cart" onclick="addToCart(8, 'Pollo a la Plancha', 14.00)">
+                        <i class="fas fa-cart-plus"></i>
+                        Agregar al Carrito
+                    </button>
+                </div>
+
+                <div class="menu-item">
+                    <div class="menu-item-image">
+                        <img src="images/mollejita.jpg" alt="Mollejita">
+                    </div>
+                    <div class="menu-item-header">
+                        <div class="menu-item-name">Mollejita</div>
+                        <div class="menu-item-price">S/ 13.00</div>
+                    </div>
+                    <button class="btn-add-cart" onclick="addToCart(9, 'Mollejita', 13.00)">
+                        <i class="fas fa-cart-plus"></i>
+                        Agregar al Carrito
+                    </button>
+                </div>
+
+                <!-- PESCADO FRITO - Disponible solo Jueves -->
+                <div class="menu-item" data-availability="thursday">
+                    <div class="availability-badge"></div>
+                    <div class="menu-item-image">
+                        <img src="images/pescado-frito.jpg" alt="Pescado Frito">
+                    </div>
+                    <div class="menu-item-header">
+                        <div class="menu-item-name">Pescado Frito</div>
+                        <div class="menu-item-price">S/ 16.00</div>
+                    </div>
+                    <button class="btn-add-cart" onclick="addToCart(10, 'Pescado Frito', 16.00)">
+                        <i class="fas fa-cart-plus"></i>
+                        Agregar al Carrito
+                    </button>
+                </div>
+
+                <!-- CALDO DE GALLINA - Disponible Sábado y Domingo -->
+                <div class="menu-item" data-availability="weekend">
+                    <div class="availability-badge"></div>
+                    <div class="menu-item-image">
+                        <img src="images/caldo-gallina.jpg" alt="Caldo de Gallina">
+                    </div>
+                    <div class="menu-item-header">
+                        <div class="menu-item-name">Caldo de Gallina</div>
+                        <div class="menu-item-price">S/ 12.00</div>
+                    </div>
+                    <button class="btn-add-cart" onclick="addToCart(11, 'Caldo de Gallina', 12.00)">
+                        <i class="fas fa-cart-plus"></i>
+                        Agregar al Carrito
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="cart-float" onclick="window.location.href='carrito.html'">
+        <i class="fas fa-shopping-cart"></i>
+        <span>Ver Carrito (<span id="cart-total-items">0</span>)</span>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <i class="fas fa-drumstick-bite"></i>
+                <span>LA ESQUINA DEL SABOR</span>
+            </div>
+            <p class="footer-slogan">SABOR QUE TE HACE VOLVER</p>
+            <p class="footer-copy">© 2025 La Esquina del Sabor. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <a href="https://wa.me/51933642183" class="whatsapp-float" target="_blank" title="Contáctanos por WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script>
+        // ===== SISTEMA DE DISPONIBILIDAD AUTOMÁTICA POR DÍA =====
+        function checkAvailability() {
+            const today = new Date().getDay(); // 0=Domingo, 1=Lunes, 2=Martes, 3=Miércoles, 4=Jueves, 5=Viernes, 6=Sábado
+            const announcement = document.getElementById('daily-announcement');
+            
+            // Obtener todos los platos con disponibilidad especial
+            const menuItems = document.querySelectorAll('[data-availability]');
+            
+            menuItems.forEach(item => {
+                const availability = item.getAttribute('data-availability');
+                let isAvailable = false;
+                
+                // Verificar disponibilidad según el tipo
+                if (availability === 'thursday') {
+                    // Pescado Frito - Solo jueves
+                    isAvailable = (today === 4);
+                } else if (availability === 'weekend') {
+                    // Caldo de Gallina - Sábado y Domingo
+                    isAvailable = (today === 6 || today === 0);
+                }
+                
+                // Aplicar clases según disponibilidad
+                if (isAvailable) {
+                    item.classList.add('available');
+                    item.classList.remove('unavailable');
+                } else {
+                    item.classList.add('unavailable');
+                    item.classList.remove('available');
+                }
+            });
+            
+            // Mostrar anuncio automático según el día
+            let announcementText = '';
+            
+            if (today === 4) { // Jueves
+                announcementText = '<i class="fas fa-fish"></i> ¡HOY ES JUEVES! Disfruta de nuestro delicioso <strong>PESCADO FRITO</strong> 🐟';
+                announcement.classList.add('show');
+            } else if (today === 6 || today === 0) { // Sábado o Domingo
+                announcementText = '<i class="fas fa-drumstick-bite"></i> ¡FIN DE SEMANA! Prueba nuestro reconfortante <strong>CALDO DE GALLINA</strong> 🍲';
+                announcement.classList.add('show');
+            } else {
+                announcement.classList.remove('show');
+            }
+            
+            announcement.innerHTML = announcementText;
+        }
+
+        // Sistema del Carrito
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        function updateCartCount() {
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.querySelector('.cart-count').textContent = totalItems;
+            document.getElementById('cart-total-items').textContent = totalItems;
+        }
+
+        function addToCart(id, name, price) {
+            // Verificar si el plato está disponible antes de agregarlo
+            const menuItem = document.querySelector(`button[onclick*="addToCart(${id}"]`).closest('.menu-item');
+            if (menuItem && menuItem.classList.contains('unavailable')) {
+                alert('Este plato no está disponible hoy. ¡Vuelve el día indicado!');
+                return;
+            }
+            
+            // Crear modal de personalización específico para cada producto
+            let modalContent = '';
+            
+            if (name.includes('Broaster') || name.includes('Hamburguesa') || name === 'Salchipapa') {
+                // Broaster, Hamburguesas y Salchipapa
+                modalContent = `
+                    <div class="modal-content">
+                        <h3 class="modal-title">Personalizar ${name}</h3>
+                        
+                        <div class="option-group">
+                            <h4 class="option-title">Cremas</h4>
+                            <div class="checkbox-grid">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="crema" value="Ají">
+                                    <span>Ají</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="crema" value="Ketchup">
+                                    <span>Ketchup</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="crema" value="Mostaza">
+                                    <span>Mostaza</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="crema" value="Tártara">
+                                    <span>Tártara</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="crema" value="Golf">
+                                    <span>Golf</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="crema" value="Mayonesa">
+                                    <span>Mayonesa</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="crema" value="Aceituna">
+                                    <span>Aceituna</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="option-group">
+                            <h4 class="option-title">Acompañamiento</h4>
+                            <div class="radio-group">
+                `;
+                
+                if (name.includes('Broaster')) {
+                    modalContent += `
+                                <label class="radio-label">
+                                    <input type="radio" name="acompanamiento" value="Arroz">
+                                    <span>Arroz</span>
+                                </label>
+                                <label class="radio-label">
+                                    <input type="radio" name="acompanamiento" value="Ensalada">
+                                    <span>Ensalada</span>
+                                </label>
+                                <label class="radio-label">
+                                    <input type="radio" name="acompanamiento" value="Arroz y Ensalada">
+                                    <span>Arroz y Ensalada</span>
+                                </label>
+                                <label class="radio-label">
+                                    <input type="radio" name="acompanamiento" value="Sin Acompañamiento" checked>
+                                    <span>Sin Acompañamiento</span>
+                                </label>
+                    `;
+                } else if (name.includes('Hamburguesa') || name === 'Salchipapa') {
+                    modalContent += `
+                                <label class="radio-label">
+                                    <input type="radio" name="acompanamiento" value="Ensalada">
+                                    <span>Ensalada</span>
+                                </label>
+                                <label class="radio-label">
+                                    <input type="radio" name="acompanamiento" value="Sin Acompañamiento" checked>
+                                    <span>Sin Acompañamiento</span>
+                                </label>
+                    `;
+                }
+                
+                modalContent += `
+                            </div>
+                        </div>
+
+                        <div class="modal-buttons">
+                            <button class="btn-cancel" onclick="closeModal()">Cancelar</button>
+                            <button class="btn-confirm" onclick="confirmarPedido(${id}, '${name}', ${price})">Agregar al Carrito</button>
+                        </div>
+                    </div>
+                `;
+            } else if (name === 'Pollo a la Plancha') {
+                // Pollo a la Plancha
+                modalContent = `
+                    <div class="modal-content">
+                        <h3 class="modal-title">Personalizar ${name}</h3>
+                        
+                        <div class="option-group">
+                            <h4 class="option-title">Cremas</h4>
+                            <div style="margin-bottom: 10px;">
+                                <input type="text" class="form-input" id="otras-cremas" placeholder="Escribe la crema que quieras" style="width: 100%; padding: 10px; border: 2px solid #e9ecef; border-radius: 8px;">
+                            </div>
+                        </div>
+
+                        <div class="option-group">
+                            <h4 class="option-title">Acompañamiento</h4>
+                            <div class="radio-group">
+                                <label class="radio-label">
+                                    <input type="radio" name="acompanamiento" value="Ensalada">
+                                    <span>Ensalada</span>
+                                </label>
+                                <label class="radio-label">
+                                    <input type="radio" name="acompanamiento" value="Sin Acompañamiento" checked>
+                                    <span>Sin Acompañamiento</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="modal-buttons">
+                            <button class="btn-cancel" onclick="closeModal()">Cancelar</button>
+                            <button class="btn-confirm" onclick="confirmarPedido(${id}, '${name}', ${price})">Agregar al Carrito</button>
+                        </div>
+                    </div>
+                `;
+            } else if (name === 'Mollejita') {
+                // Mollejita
+                modalContent = `
+                    <div class="modal-content">
+                        <h3 class="modal-title">Personalizar ${name}</h3>
+                        
+                        <div class="option-group">
+                            <h4 class="option-title">Cremas</h4>
+                            <div class="checkbox-grid">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="crema" value="Ají">
+                                    <span>Ají</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="crema" value="Mayonesa">
+                                    <span>Mayonesa</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="crema" value="Otras">
+                                    <span>Otras</span>
+                                </label>
+                            </div>
+                            <div style="margin-top: 10px;">
+                                <input type="text" class="form-input" id="otras-cremas-molleja" placeholder="Escribe otras cremas" style="width: 100%; padding: 10px; border: 2px solid #e9ecef; border-radius: 8px;">
+                            </div>
+                        </div>
+
+                        <div class="option-group">
+                            <h4 class="option-title">Acompañamiento</h4>
+                            <div class="radio-group">
+                                <label class="radio-label">
+                                    <input type="radio" name="acompanamiento" value="Arroz">
+                                    <span>Arroz</span>
+                                </label>
+                                <label class="radio-label">
+                                    <input type="radio" name="acompanamiento" value="Ensalada">
+                                    <span>Ensalada</span>
+                                </label>
+                                <label class="radio-label">
+                                    <input type="radio" name="acompanamiento" value="Arroz y Ensalada">
+                                    <span>Arroz y Ensalada</span>
+                                </label>
+                                <label class="radio-label">
+                                    <input type="radio" name="acompanamiento" value="Sin Acompañamiento" checked>
+                                    <span>Sin Acompañamiento</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="modal-buttons">
+                            <button class="btn-cancel" onclick="closeModal()">Cancelar</button>
+                            <button class="btn-confirm" onclick="confirmarPedido(${id}, '${name}', ${price})">Agregar al Carrito</button>
+                        </div>
+                    </div>
+                `;
+            } else if (name === 'Caldo de Gallina') {
+                // Caldo de Gallina
+                modalContent = `
+                    <div class="modal-content">
+                        <h3 class="modal-title">Personalizar ${name}</h3>
+                        
+                        <div class="option-group">
+                            <h4 class="option-title">Acompañamiento</h4>
+                            <div class="radio-group">
+                                <label class="radio-label">
+                                    <input type="radio" name="acompanamiento" value="Cebolla china y canchita" checked>
+                                    <span>Cebolla china y canchita</span>
+                                </label>
+                                <label class="radio-label">
+                                    <input type="radio" name="acompanamiento" value="Sin Acompañamiento">
+                                    <span>Sin Acompañamiento</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="modal-buttons">
+                            <button class="btn-cancel" onclick="closeModal()">Cancelar</button>
+                            <button class="btn-confirm" onclick="confirmarPedido(${id}, '${name}', ${price})">Agregar al Carrito</button>
+                        </div>
+                    </div>
+                `;
+            } else if (name === 'Pescado Frito') {
+                // Pescado Frito
+                modalContent = `
+                    <div class="modal-content">
+                        <h3 class="modal-title">Personalizar ${name}</h3>
+                        
+                        <div class="option-group">
+                            <h4 class="option-title">Cremas</h4>
+                            <div class="checkbox-grid">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="crema" value="Ají">
+                                    <span>Ají</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="crema" value="Mayonesa">
+                                    <span>Mayonesa</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="crema" value="Tártara">
+                                    <span>Tártara</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="option-group">
+                            <h4 class="option-title">Acompañamiento</h4>
+                            <div class="radio-group">
+                                <label class="radio-label">
+                                    <input type="radio" name="acompanamiento" value="Arroz">
+                                    <span>Arroz</span>
+                                </label>
+                                <label class="radio-label">
+                                    <input type="radio" name="acompanamiento" value="Ensalada">
+                                    <span>Ensalada</span>
+                                </label>
+                                <label class="radio-label">
+                                    <input type="radio" name="acompanamiento" value="Arroz y Ensalada">
+                                    <span>Arroz y Ensalada</span>
+                                </label>
+                                <label class="radio-label">
+                                    <input type="radio" name="acompanamiento" value="Sin Acompañamiento" checked>
+                                    <span>Sin Acompañamiento</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="modal-buttons">
+                            <button class="btn-cancel" onclick="closeModal()">Cancelar</button>
+                            <button class="btn-confirm" onclick="confirmarPedido(${id}, '${name}', ${price})">Agregar al Carrito</button>
+                        </div>
+                    </div>
+                `;
+            }
+
+            const modal = document.createElement('div');
+            modal.className = 'customization-modal';
+            modal.innerHTML = modalContent;
+            
+            document.body.appendChild(modal);
+        }
+
+        function closeModal() {
+            const modal = document.querySelector('.customization-modal');
+            if (modal) {
+                document.body.removeChild(modal);
+            }
+        }
+
+        function confirmarPedido(id, name, basePrice) {
+            let cremasSeleccionadas = [];
+            let acompanamiento = '';
+            let otrasCremas = '';
+
+            if (name.includes('Broaster') || name.includes('Hamburguesa') || name === 'Salchipapa') {
+                // Broaster, Hamburguesas y Salchipapa
+                document.querySelectorAll('input[name="crema"]:checked').forEach(checkbox => {
+                    cremasSeleccionadas.push(checkbox.value);
+                });
+                acompanamiento = document.querySelector('input[name="acompanamiento"]:checked').value;
+            } else if (name === 'Pollo a la Plancha') {
+                // Pollo a la Plancha
+                otrasCremas = document.getElementById('otras-cremas').value.trim();
+                if (otrasCremas) {
+                    cremasSeleccionadas.push(otrasCremas);
+                }
+                acompanamiento = document.querySelector('input[name="acompanamiento"]:checked').value;
+            } else if (name === 'Mollejita') {
+                // Mollejita
+                document.querySelectorAll('input[name="crema"]:checked').forEach(checkbox => {
+                    if (checkbox.value === 'Otras') {
+                        otrasCremas = document.getElementById('otras-cremas-molleja').value.trim();
+                        if (otrasCremas) {
+                            cremasSeleccionadas.push(otrasCremas);
+                        }
+                    } else {
+                        cremasSeleccionadas.push(checkbox.value);
+                    }
+                });
+                acompanamiento = document.querySelector('input[name="acompanamiento"]:checked').value;
+            } else if (name === 'Caldo de Gallina' || name === 'Pescado Frito') {
+                // Caldo de Gallina y Pescado Frito
+                if (name === 'Pescado Frito') {
+                    document.querySelectorAll('input[name="crema"]:checked').forEach(checkbox => {
+                        cremasSeleccionadas.push(checkbox.value);
+                    });
+                }
+                acompanamiento = document.querySelector('input[name="acompanamiento"]:checked').value;
+            }
+
+            // Agregar al carrito
+            const existingItem = cart.find(item => item.id === id);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    id: id,
+                    name: name,
+                    price: basePrice,
+                    quantity: 1,
+                    cremas: cremasSeleccionadas,
+                    acompanamiento: acompanamiento,
+                    timestamp: Date.now()
+                });
+            }
+            
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
+            
+            // Cerrar modal
+            closeModal();
+            
+            // Efecto visual de confirmación
+            const button = event.target.closest('.btn-add-cart');
+            const originalHTML = button.innerHTML;
+            button.innerHTML = '<i class="fas fa-check"></i> Agregado';
+            button.style.background = '#2a9d8f';
+            
+            setTimeout(() => {
+                button.innerHTML = originalHTML;
+                button.style.background = '';
+            }, 1500);
+        }
+
+        // Menú móvil
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.querySelector('.nav-links');
+
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            menuToggle.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                menuToggle.classList.remove('active');
+            });
+        });
+
+        // Inicializar contador del carrito
+        updateCartCount();
+        
+        // Inicializar sistema de disponibilidad
+        checkAvailability();
+        
+        // Verificar disponibilidad cada hora (por si la página queda abierta hasta el día siguiente)
+        setInterval(checkAvailability, 3600000); // 3600000 ms = 1 hora
+    </script>
+</body>
+</html>
